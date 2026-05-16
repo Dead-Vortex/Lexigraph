@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bi67pp45sgbh1"]
+[gd_scene format=3 uid="uid://bi67pp45sgbh1"]
 
-[ext_resource type="Texture2D" uid="uid://0wgs31x3fi0s" path="res://assets/scrabblePiecesSheet.png" id="1_3dk36"]
+[ext_resource type="Texture2D" uid="uid://0wgs31x3fi0s" path="res://Assets/scrabblePiecesSheet.png" id="1_3dk36"]
 [ext_resource type="Script" uid="uid://ny5fxw67hxqe" path="res://scenes/tile.gd" id="1_ywnoi"]
 
-[node name="Tile" type="Control"]
+[node name="Tile" type="Control" unique_id=1421871343]
 custom_minimum_size = Vector2(65, 65)
 layout_mode = 3
 anchors_preset = 0
@@ -12,24 +12,26 @@ tooltip_text = "\"A\"
 1 Point"
 script = ExtResource("1_ywnoi")
 
-[node name="BlankTile" type="Sprite2D" parent="."]
+[node name="BlankTile" type="Sprite2D" parent="." unique_id=138283062]
 texture = ExtResource("1_3dk36")
 centered = false
 hframes = 9
 vframes = 4
 
-[node name="Letter" type="Sprite2D" parent="."]
+[node name="Letter" type="Sprite2D" parent="." unique_id=1427450264]
 z_index = 1
 texture = ExtResource("1_3dk36")
 centered = false
+offset = Vector2(-3, 5)
 hframes = 9
 vframes = 4
 frame = 1
 
-[node name="Number" type="Sprite2D" parent="."]
+[node name="Number" type="Sprite2D" parent="." unique_id=1039641371]
 z_index = 2
 texture = ExtResource("1_3dk36")
 centered = false
+offset = Vector2(4, 0)
 hframes = 9
 vframes = 4
 frame = 27

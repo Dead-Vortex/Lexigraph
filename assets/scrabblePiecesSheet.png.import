@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://0wgs31x3fi0s"
-path="res://.godot/imported/scrabblePiecesSheet.png-01cc26e57315411e92f7cb7a50d50dd5.ctex"
+path="res://.godot/imported/scrabblePiecesSheet.png-75a4d929ead4e0ae4c30c5193874bad9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/scrabblePiecesSheet.png"
-dest_files=["res://.godot/imported/scrabblePiecesSheet.png-01cc26e57315411e92f7cb7a50d50dd5.ctex"]
+source_file="res://Assets/scrabblePiecesSheet.png"
+dest_files=["res://.godot/imported/scrabblePiecesSheet.png-75a4d929ead4e0ae4c30c5193874bad9.ctex"]
 
 [params]
 
