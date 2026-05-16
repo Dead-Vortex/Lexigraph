@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://dxuimd18hh13m"]
+[gd_scene load_steps=3 format=3 uid="uid://dxuimd18hh13m"]
+
+[ext_resource type="Script" uid="uid://b4sv206etsm6" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://bi67pp45sgbh1" path="res://scenes/tile.tscn" id="2_yqjtg"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -7,3 +10,53 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_yqjtg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="HandPanelContainer" type="PanelContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -107.0
+offset_right = 288.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Hand" type="HBoxContainer" parent="HandPanelContainer"]
+clip_contents = true
+layout_mode = 2
+alignment = 1
+
+[node name="Tile" parent="HandPanelContainer/Hand" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile2" parent="HandPanelContainer/Hand" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile3" parent="HandPanelContainer/Hand" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile4" parent="HandPanelContainer/Hand" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile5" parent="HandPanelContainer/Hand" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile6" parent="HandPanelContainer/Hand" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile7" parent="HandPanelContainer/Hand" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="HandCounter" type="Label" parent="HandPanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "0/7"

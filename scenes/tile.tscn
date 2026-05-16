@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi67pp45sgbh1"]
+
+[ext_resource type="Texture2D" uid="uid://0wgs31x3fi0s" path="res://assets/scrabblePiecesSheet.png" id="1_3dk36"]
+[ext_resource type="Script" uid="uid://ny5fxw67hxqe" path="res://scenes/tile.gd" id="1_ywnoi"]
+
+[node name="Tile" type="Control"]
+custom_minimum_size = Vector2(65, 65)
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 4
+tooltip_text = "\"A\"
+1 Point"
+script = ExtResource("1_ywnoi")
+
+[node name="BlankTile" type="Sprite2D" parent="."]
+texture = ExtResource("1_3dk36")
+centered = false
+hframes = 9
+vframes = 4
+
+[node name="Letter" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("1_3dk36")
+centered = false
+hframes = 9
+vframes = 4
+frame = 1
+
+[node name="Number" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("1_3dk36")
+centered = false
+hframes = 9
+vframes = 4
+frame = 27
