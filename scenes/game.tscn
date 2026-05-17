@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dxuimd18hh13m"]
 
 [ext_resource type="Script" uid="uid://b4sv206etsm6" path="res://scripts/game.gd" id="1_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://bi67pp45sgbh1" path="res://scenes/tile.tscn" id="2_yqjtg"]
 
 [node name="Control" type="Control" unique_id=225371765]
 layout_mode = 3
@@ -33,27 +32,6 @@ grow_vertical = 0
 clip_contents = true
 layout_mode = 2
 alignment = 1
-
-[node name="Tile" parent="HandPanelContainer/Hand" unique_id=139394250 instance=ExtResource("2_yqjtg")]
-layout_mode = 2
-
-[node name="Tile2" parent="HandPanelContainer/Hand" unique_id=649304655 instance=ExtResource("2_yqjtg")]
-layout_mode = 2
-
-[node name="Tile3" parent="HandPanelContainer/Hand" unique_id=647485196 instance=ExtResource("2_yqjtg")]
-layout_mode = 2
-
-[node name="Tile4" parent="HandPanelContainer/Hand" unique_id=603002079 instance=ExtResource("2_yqjtg")]
-layout_mode = 2
-
-[node name="Tile5" parent="HandPanelContainer/Hand" unique_id=678186906 instance=ExtResource("2_yqjtg")]
-layout_mode = 2
-
-[node name="Tile6" parent="HandPanelContainer/Hand" unique_id=1576025425 instance=ExtResource("2_yqjtg")]
-layout_mode = 2
-
-[node name="Tile7" parent="HandPanelContainer/Hand" unique_id=34961933 instance=ExtResource("2_yqjtg")]
-layout_mode = 2
 
 [node name="HandCounter" type="Label" parent="HandPanelContainer" unique_id=1104539642]
 layout_mode = 2

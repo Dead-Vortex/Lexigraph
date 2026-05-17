@@ -21,7 +21,7 @@ config/icon="uid://q775x8wwf472"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
 [rendering]
