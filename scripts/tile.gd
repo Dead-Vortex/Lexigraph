@@ -31,5 +31,5 @@ func change_letter(new_letter: String):
 	tooltip_text = "\"" + Letters.NUM_TO_LETTER[letter] + "\"\n" + str(number) + " Point" + ("s" if number != 1 else "")
 
 func _on_tile_clicked() -> void:
-	print("hello from " + name)
+	#print("hello from " + name)
 	emit_signal("tile_clicked", self)

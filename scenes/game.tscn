@@ -22,9 +22,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -288.0
+offset_left = -355.0
 offset_top = -107.0
-offset_right = 288.0
+offset_right = 355.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -37,7 +37,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-text = "0/7"
+text = "0/9"
 
 [node name="WordDisplay" type="Label" parent="." unique_id=1085818767]
 layout_mode = 1
@@ -66,4 +66,18 @@ offset_right = 142.0
 grow_vertical = 0
 text = "Clear"
 
+[node name="PlayWord" type="Button" parent="." unique_id=121515665]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -142.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Play"
+
 [connection signal="pressed" from="ClearWord" to="." method="_on_word_cleared"]
+[connection signal="pressed" from="PlayWord" to="." method="_on_word_played"]

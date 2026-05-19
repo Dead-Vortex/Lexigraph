@@ -7,6 +7,9 @@ var tile_scene = preload("res://scenes/tile.tscn")
 
 var en_dictionary : PackedStringArray
 
+var hand_size : int = 9
+var deck = []
+
 var typed_word : String
 
 func load_dictionary():
@@ -17,16 +20,58 @@ func load_dictionary():
 
 func in_dictionary(word: String) -> bool:
 	var lower_word = word.to_lower()
-	return lower_word in en_dictionary
+	if lower_word in en_dictionary and len(lower_word) >= 2:
+		return true
+	else:
+		return false
 
 func _ready() -> void:
 	load_dictionary()
-	for i in 7:
-		draw_new_tile()
-		await get_tree().create_timer(0.2).timeout
+	# Create base deck
+	for i in 12:
+		if i <= 9:
+			deck.append(1)
+			deck.append(9)
+		if i <= 2:
+			deck.append(2)
+			deck.append(3)
+			deck.append(6)
+			deck.append(8)
+			deck.append(13)
+			deck.append(16)
+			deck.append(22)
+			deck.append(23)
+			deck.append(25)
+		if i <= 4:
+			deck.append(4)
+			deck.append(12)
+			deck.append(19)
+			deck.append(21)
+		deck.append(5)
+		if i <= 3:
+			deck.append(7)
+		if i == 1:
+			deck.append(10)
+			deck.append(11)
+			deck.append(17)
+			deck.append(24)
+			deck.append(26)
+		if i <= 6:
+			deck.append(14)
+			deck.append(18)
+			deck.append(20)
+		if i <= 8:
+			deck.append(15)
+	deck.shuffle()
+	for i in hand_size:
+		var chosen_letter = deck.pick_random()
+		deck.remove_at(deck.find(chosen_letter))
+		draw_new_tile(Letters.NUM_TO_LETTER[chosen_letter])
+		await get_tree().create_timer(0.14).timeout
+	#print(deck)
 
 func _process(_delta) -> void:
-	handCounter.text = str(hand.get_child_count()) + "/7"
+	handCounter.text = str(hand.get_child_count()) + "/" + str(hand_size)
 
 func draw_new_tile(letter = "") -> void:
 	var tile_instance = tile_scene.instantiate()
@@ -52,3 +97,6 @@ func _on_word_cleared() -> void:
 		draw_new_tile(typed_word[i])
 	typed_word = ""
 	word_display.text = typed_word
+
+func _on_word_played() -> void:
+	pass # Replace with function body.
