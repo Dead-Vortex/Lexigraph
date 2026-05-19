@@ -10,6 +10,8 @@ var letterToNum = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 
 var number: int = 1
 var letter: int = 1
 
+@onready var soundplayer = $AudioStreamPlayer
+
 func _ready() -> void:
 	#for i in 26:
 		#numToLetter[i + 1] = letters[i]
@@ -20,3 +22,9 @@ func _ready() -> void:
 	tile_letter.frame = letter
 	tile_number.text = str(number)
 	tooltip_text = "\"" + numToLetter[letter] + "\"\n" + str(number) + " Point" + ("s" if number != 1 else "")
+	soundplayer.pitch_scale = randf_range(0.8, 1.1)
+	soundplayer.play()
+
+
+func _on_tile_clicked() -> void:
+	print("hello from " + name)
