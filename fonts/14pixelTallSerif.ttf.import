@@ -3,17 +3,17 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://cduv8autg8r6g"
-path="res://.godot/imported/14pixelTallSerif.ttf-d009f9ca4b760c80885e7b86f7b90aee.fontdata"
+path="res://.godot/imported/14pixelTallSerif.ttf-e31c49c0305a248e161d84d114a2ba74.fontdata"
 
 [deps]
 
-source_file="res://Fonts/14pixelTallSerif.ttf"
-dest_files=["res://.godot/imported/14pixelTallSerif.ttf-d009f9ca4b760c80885e7b86f7b90aee.fontdata"]
+source_file="res://fonts/14pixelTallSerif.ttf"
+dest_files=["res://.godot/imported/14pixelTallSerif.ttf-e31c49c0305a248e161d84d114a2ba74.fontdata"]
 
 [params]
 
 Rendering=null
-antialiasing=1
+antialiasing=0
 generate_mipmaps=false
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
@@ -30,7 +30,12 @@ Fallbacks=null
 fallbacks=[]
 Compress=null
 compress=true
-preload=[]
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0)
+}]
 language_support={}
 script_support={}
 opentype_features={}
