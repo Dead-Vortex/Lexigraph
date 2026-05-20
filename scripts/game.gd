@@ -123,7 +123,7 @@ func _on_word_played() -> void:
 	if in_dictionary(typed_word):
 		hand_score = 0
 		for i in len(played_tiles):
-			score += played_tiles[i].number
+			hand_score += played_tiles[i].number
 		score += hand_score
 		scoreCounter.text = "Score: " + str(score)
 		print(hand_score)
@@ -131,3 +131,11 @@ func _on_word_played() -> void:
 		typed_word = ""
 		word_display.text = ""
 		draw_tiles_from_deck(true)
+		hand_score = 0
+
+func _on_tiles_discarded() -> void:
+	played_tiles = []
+	typed_word = ""
+	word_display.text = ""
+	sort_hand()
+	draw_tiles_from_deck(true)

@@ -94,6 +94,20 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Play"
 
+[node name="DiscardTiles" type="Button" parent="." unique_id=1931683450]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.88000005
+anchor_right = 1.0
+anchor_bottom = 0.88000005
+offset_left = -142.0
+offset_top = -20.240051
+offset_bottom = 19.759949
+grow_horizontal = 0
+grow_vertical = 0
+text = "Discard"
+
 [node name="ScoreCounter" type="Label" parent="." unique_id=1277986218]
 layout_mode = 0
 offset_right = 40.0
@@ -103,3 +117,4 @@ label_settings = SubResource("LabelSettings_lbhrr")
 
 [connection signal="pressed" from="ClearWord" to="." method="_on_word_cleared"]
 [connection signal="pressed" from="PlayWord" to="." method="_on_word_played"]
+[connection signal="pressed" from="DiscardTiles" to="." method="_on_tiles_discarded"]
