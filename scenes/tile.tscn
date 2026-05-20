@@ -25,7 +25,7 @@ offset_right = 65.0
 offset_bottom = 65.0
 flat = true
 
-[node name="BlankTile" type="Sprite2D" parent="." unique_id=138283062]
+[node name="TileBase" type="Sprite2D" parent="." unique_id=138283062]
 texture = ExtResource("1_3dk36")
 centered = false
 hframes = 9

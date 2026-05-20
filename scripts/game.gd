@@ -2,6 +2,7 @@ extends Control
 
 @onready var hand = $HandPanelContainer/Hand
 @onready var handCounter = $HandPanelContainer/HandCounter
+@onready var scoreCounter = $ScoreCounter
 var tile_scene = preload("res://scenes/tile.tscn")
 @onready var word_display = $WordDisplay
 
@@ -11,6 +12,9 @@ var hand_size : int = 9
 var deck = []
 
 var typed_word : String
+var played_tiles = []
+var hand_score : int = 0
+var score: int = 0
 
 func load_dictionary():
 	var file = FileAccess.open("res://dictionary.txt", FileAccess.READ)
@@ -63,11 +67,13 @@ func _ready() -> void:
 		if i <= 8:
 			deck.append(15)
 	deck.shuffle()
-	for i in hand_size:
-		var chosen_letter = deck.pick_random()
-		deck.remove_at(deck.find(chosen_letter))
-		draw_new_tile(Letters.NUM_TO_LETTER[chosen_letter])
-		await get_tree().create_timer(0.14).timeout
+	
+	draw_tiles_from_deck(true)
+	#for i in hand_size:
+		#var chosen_letter = deck.pick_random()
+		#deck.remove_at(deck.find(chosen_letter))
+		#draw_new_tile(Letters.NUM_TO_LETTER[chosen_letter])
+		#await get_tree().create_timer(0.14).timeout
 	#print(deck)
 
 func _process(_delta) -> void:
@@ -80,6 +86,18 @@ func draw_new_tile(letter = "") -> void:
 	if letter != "":
 		tile_instance.change_letter(letter)
 	sort_hand()
+	
+func draw_tiles_from_deck(fill_hand: bool = false, count: int = 1, delay: float = 0.14) -> void:
+	for i in (hand_size - hand.get_child_count()) if fill_hand else count:
+		var tile_instance = tile_scene.instantiate()
+		var chosen_letter = deck.pick_random()
+		deck.remove_at(deck.find(chosen_letter))
+		hand.add_child(tile_instance)
+		tile_instance.tile_clicked.connect(_on_tile_clicked)
+		tile_instance.change_letter(Letters.NUM_TO_LETTER[chosen_letter])
+		sort_hand()
+		if count > 1 or fill_hand:
+			await get_tree().create_timer(delay).timeout
 
 func sort_hand() -> void:
 	var tiles_to_be_sorted = hand.get_children()
@@ -90,13 +108,26 @@ func sort_hand() -> void:
 func _on_tile_clicked(clicked_tile) -> void:
 	typed_word += Letters.NUM_TO_LETTER[clicked_tile.letter]
 	word_display.text = typed_word + "\n" + str(in_dictionary(typed_word))
-	clicked_tile.queue_free()
+	played_tiles.append(clicked_tile)
+	hand.remove_child(clicked_tile)
 
 func _on_word_cleared() -> void:
-	for i in len(typed_word):
-		draw_new_tile(typed_word[i])
+	for i in len(played_tiles):
+		hand.add_child(played_tiles[i])
+	sort_hand()
+	played_tiles = []
 	typed_word = ""
-	word_display.text = typed_word
+	word_display.text = ""
 
 func _on_word_played() -> void:
-	pass # Replace with function body.
+	if in_dictionary(typed_word):
+		hand_score = 0
+		for i in len(played_tiles):
+			score += played_tiles[i].number
+		score += hand_score
+		scoreCounter.text = "Score: " + str(score)
+		print(hand_score)
+		played_tiles = []
+		typed_word = ""
+		word_display.text = ""
+		draw_tiles_from_deck(true)
