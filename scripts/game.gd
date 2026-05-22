@@ -10,6 +10,8 @@ var en_dictionary : PackedStringArray
 
 var hand_size : int = 9
 var deck = []
+var starting_tiles = []
+var discarded_tiles = []
 
 var typed_word : String
 var played_tiles = []
@@ -34,38 +36,50 @@ func _ready() -> void:
 	# Create base deck
 	for i in 12:
 		if i <= 9:
-			deck.append(1)
-			deck.append(9)
+			starting_tiles.append(1)
+			starting_tiles.append(9)
 		if i <= 2:
-			deck.append(2)
-			deck.append(3)
-			deck.append(6)
-			deck.append(8)
-			deck.append(13)
-			deck.append(16)
-			deck.append(22)
-			deck.append(23)
-			deck.append(25)
+			starting_tiles.append(2)
+			starting_tiles.append(3)
+			starting_tiles.append(6)
+			starting_tiles.append(8)
+			starting_tiles.append(13)
+			starting_tiles.append(16)
+			starting_tiles.append(22)
+			starting_tiles.append(23)
+			starting_tiles.append(25)
 		if i <= 4:
-			deck.append(4)
-			deck.append(12)
-			deck.append(19)
-			deck.append(21)
-		deck.append(5)
+			starting_tiles.append(4)
+			starting_tiles.append(12)
+			starting_tiles.append(19)
+			starting_tiles.append(21)
+		starting_tiles.append(5)
 		if i <= 3:
-			deck.append(7)
+			starting_tiles.append(7)
 		if i == 1:
-			deck.append(10)
-			deck.append(11)
-			deck.append(17)
-			deck.append(24)
-			deck.append(26)
+			starting_tiles.append(10)
+			starting_tiles.append(11)
+			starting_tiles.append(17)
+			starting_tiles.append(24)
+			starting_tiles.append(26)
 		if i <= 6:
-			deck.append(14)
-			deck.append(18)
-			deck.append(20)
+			starting_tiles.append(14)
+			starting_tiles.append(18)
+			starting_tiles.append(20)
 		if i <= 8:
-			deck.append(15)
+			starting_tiles.append(15)
+	for i in len(starting_tiles):
+		var tile_instance = tile_scene.instantiate()
+		#hand.add_child(tile_instance)
+		#tile_instance.change_letter(Letters.NUM_TO_LETTER[starting_tiles[i]])
+		tile_instance.letter = starting_tiles[i]
+		tile_instance.number = Letters.LETTER_VALUES[Letters.NUM_TO_LETTER[tile_instance.letter]]
+		tile_instance.name = Letters.NUM_TO_LETTER[tile_instance.letter]
+		tile_instance.get_node("Letter").frame = tile_instance.letter
+		tile_instance.get_node("Number").text = str(tile_instance.number)
+		tile_instance.tooltip_text = "\"" + Letters.NUM_TO_LETTER[tile_instance.letter] + "\"\n" + str(tile_instance.number) + " Point" + ("s" if tile_instance.number != 1 else "")
+		tile_instance.tile_clicked.connect(_on_tile_clicked)
+		deck.append(tile_instance)
 	deck.shuffle()
 	
 	draw_tiles_from_deck(true)
@@ -89,12 +103,12 @@ func draw_new_tile(letter = "") -> void:
 	
 func draw_tiles_from_deck(fill_hand: bool = false, count: int = 1, delay: float = 0.14) -> void:
 	for i in (hand_size - hand.get_child_count()) if fill_hand else count:
-		var tile_instance = tile_scene.instantiate()
-		var chosen_letter = deck.pick_random()
-		deck.remove_at(deck.find(chosen_letter))
-		hand.add_child(tile_instance)
-		tile_instance.tile_clicked.connect(_on_tile_clicked)
-		tile_instance.change_letter(Letters.NUM_TO_LETTER[chosen_letter])
+		#var tile_instance = tile_scene.instantiate()
+		var chosen_tile = deck.pick_random()
+		deck.remove_at(deck.find(chosen_tile))
+		hand.add_child(chosen_tile)
+		#tile_instance.tile_clicked.connect(_on_tile_clicked)
+		#tile_instance.change_letter(Letters.NUM_TO_LETTER[chosen_letter])
 		sort_hand()
 		if count > 1 or fill_hand:
 			await get_tree().create_timer(delay).timeout
@@ -134,6 +148,7 @@ func _on_word_played() -> void:
 		hand_score = 0
 
 func _on_tiles_discarded() -> void:
+	discarded_tiles += played_tiles
 	played_tiles = []
 	typed_word = ""
 	word_display.text = ""
