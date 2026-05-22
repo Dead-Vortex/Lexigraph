@@ -2,9 +2,25 @@
 
 [ext_resource type="Script" uid="uid://b4sv206etsm6" path="res://scripts/game.gd" id="1_yqjtg"]
 [ext_resource type="FontFile" uid="uid://buu5abmaksqkd" path="res://fonts/alagard.ttf" id="2_yqjtg"]
+[ext_resource type="FontFile" uid="uid://cplknmcpefu3s" path="res://fonts/Times New Normal Regular.ttf" id="3_lnu2h"]
+[ext_resource type="Material" uid="uid://dp6tyqiu8s2a1" path="res://shaders/pixeltext.tres" id="4_lbhrr"]
+
+[sub_resource type="Shader" id="Shader_lbhrr"]
+code = "shader_type canvas_item;
+
+uniform float threshold : hint_range(0.0, 1.0) = 0.5;
+
+void fragment() {
+    COLOR.a = step(threshold, COLOR.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iywne"]
+shader = SubResource("Shader_lbhrr")
+shader_parameter/threshold = 0.400000019
 
 [sub_resource type="LabelSettings" id="LabelSettings_yqjtg"]
-font = ExtResource("2_yqjtg")
+font = ExtResource("3_lnu2h")
 font_size = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_lnu2h"]
@@ -12,8 +28,8 @@ font = ExtResource("2_yqjtg")
 font_size = 40
 
 [sub_resource type="LabelSettings" id="LabelSettings_lbhrr"]
-font = ExtResource("2_yqjtg")
-font_size = 40
+font = ExtResource("3_lnu2h")
+font_size = 20
 
 [node name="Control" type="Control" unique_id=225371765]
 layout_mode = 3
@@ -35,9 +51,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -355.0
+offset_left = -320.0
 offset_top = -107.0
-offset_right = 355.0
+offset_right = 321.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -47,6 +63,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="HandCounter" type="Label" parent="HandPanelContainer" unique_id=1104539642]
+material = SubResource("ShaderMaterial_iywne")
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -72,43 +89,49 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ClearWord" type="Button" parent="." unique_id=853643499]
+material = ExtResource("4_lbhrr")
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -40.0
-offset_right = 142.0
+offset_right = 94.0
+offset_bottom = -4.0
 grow_vertical = 0
 text = "Clear"
 
 [node name="PlayWord" type="Button" parent="." unique_id=121515665]
+material = ExtResource("4_lbhrr")
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -142.0
-offset_top = -40.0
+offset_left = -104.0
+offset_top = -70.0
+offset_bottom = -39.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Play"
 
 [node name="DiscardTiles" type="Button" parent="." unique_id=1931683450]
+material = ExtResource("4_lbhrr")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.88000005
 anchor_right = 1.0
 anchor_bottom = 0.88000005
-offset_left = -142.0
-offset_top = -20.240051
-offset_bottom = 19.759949
+offset_left = -104.0
+offset_top = -60.80002
+offset_bottom = -29.800018
 grow_horizontal = 0
 grow_vertical = 0
 text = "Discard"
 
 [node name="ScoreCounter" type="Label" parent="." unique_id=1277986218]
+material = ExtResource("4_lbhrr")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0

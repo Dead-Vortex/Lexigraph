@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://0wgs31x3fi0s" path="res://assets/scrabblePiecesSheet.png" id="1_3dk36"]
 [ext_resource type="Script" uid="uid://ny5fxw67hxqe" path="res://scripts/tile.gd" id="1_ywnoi"]
-[ext_resource type="FontFile" uid="uid://cplknmcpefu3s" path="res://fonts/Times New Normal Regular.ttf" id="3_q7utx"]
+[ext_resource type="FontFile" uid="uid://chtp1an80eyvy" path="res://fonts/0123456789_9x7.ttf" id="3_q7utx"]
 [ext_resource type="AudioStream" uid="uid://cofbl5aeyfbh6" path="res://sounds/tile.ogg" id="4_q7utx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_q7utx"]
@@ -11,9 +11,11 @@ font_size = 8
 font_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
 
 [node name="Tile" type="Control" unique_id=1421871343]
-custom_minimum_size = Vector2(65, 65)
+custom_minimum_size = Vector2(43, 46)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 46.0
+offset_bottom = 46.0
 size_flags_vertical = 4
 tooltip_text = "\"A\"
 1 Point"
@@ -21,8 +23,8 @@ script = ExtResource("1_ywnoi")
 
 [node name="Button" type="Button" parent="." unique_id=10372549]
 layout_mode = 0
-offset_right = 65.0
-offset_bottom = 65.0
+offset_right = 46.0
+offset_bottom = 46.0
 flat = true
 
 [node name="TileBase" type="Sprite2D" parent="." unique_id=138283062]
@@ -44,9 +46,9 @@ frame = 1
 [node name="Number" type="Label" parent="." unique_id=697478805]
 layout_mode = 0
 offset_left = -12.0
-offset_top = 4.0
+offset_top = 1.0
 offset_right = 42.0
-offset_bottom = 18.0
+offset_bottom = 15.0
 text = "1"
 label_settings = SubResource("LabelSettings_q7utx")
 horizontal_alignment = 2
