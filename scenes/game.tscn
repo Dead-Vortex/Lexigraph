@@ -4,6 +4,8 @@
 [ext_resource type="FontFile" uid="uid://buu5abmaksqkd" path="res://fonts/alagard.ttf" id="2_yqjtg"]
 [ext_resource type="FontFile" uid="uid://cplknmcpefu3s" path="res://fonts/Times New Normal Regular.ttf" id="3_lnu2h"]
 [ext_resource type="Material" uid="uid://dp6tyqiu8s2a1" path="res://shaders/pixeltext.tres" id="4_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://bty4nf18hjtic" path="res://assets/playword.png" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://8nisiy031ks" path="res://assets/discard.png" id="6_p57ef"]
 
 [sub_resource type="Shader" id="Shader_lbhrr"]
 code = "shader_type canvas_item;
@@ -52,8 +54,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -320.0
-offset_top = -107.0
+offset_top = -135.0
 offset_right = 321.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -100,36 +103,6 @@ offset_bottom = -4.0
 grow_vertical = 0
 text = "Clear"
 
-[node name="PlayWord" type="Button" parent="." unique_id=121515665]
-material = ExtResource("4_lbhrr")
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -104.0
-offset_top = -70.0
-offset_bottom = -39.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "Play"
-
-[node name="DiscardTiles" type="Button" parent="." unique_id=1931683450]
-material = ExtResource("4_lbhrr")
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.88000005
-anchor_right = 1.0
-anchor_bottom = 0.88000005
-offset_left = -104.0
-offset_top = -60.80002
-offset_bottom = -29.800018
-grow_horizontal = 0
-grow_vertical = 0
-text = "Discard"
-
 [node name="ScoreCounter" type="Label" parent="." unique_id=1277986218]
 material = ExtResource("4_lbhrr")
 layout_mode = 0
@@ -137,6 +110,22 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_lbhrr")
+
+[node name="PlayWord" type="TextureButton" parent="." unique_id=863315500]
+layout_mode = 0
+offset_left = 182.0
+offset_top = 314.0
+offset_right = 292.0
+offset_bottom = 356.0
+texture_normal = ExtResource("5_iywne")
+
+[node name="DiscardTiles" type="TextureButton" parent="." unique_id=272335820]
+layout_mode = 0
+offset_left = 356.0
+offset_top = 314.0
+offset_right = 466.0
+offset_bottom = 356.0
+texture_normal = ExtResource("6_p57ef")
 
 [connection signal="pressed" from="ClearWord" to="." method="_on_word_cleared"]
 [connection signal="pressed" from="PlayWord" to="." method="_on_word_played"]
