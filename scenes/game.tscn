@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://dp6tyqiu8s2a1" path="res://shaders/pixeltext.tres" id="4_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://bty4nf18hjtic" path="res://assets/playword.png" id="5_iywne"]
 [ext_resource type="Texture2D" uid="uid://8nisiy031ks" path="res://assets/discard.png" id="6_p57ef"]
+[ext_resource type="Texture2D" uid="uid://d0uas3kdsoohh" path="res://assets/bckg.png" id="7_u5sy4"]
 
 [sub_resource type="Shader" id="Shader_lbhrr"]
 code = "shader_type canvas_item;
@@ -126,6 +127,13 @@ offset_top = 314.0
 offset_right = 466.0
 offset_bottom = 356.0
 texture_normal = ExtResource("6_p57ef")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1529078212]
+z_index = -2
+position = Vector2(267.72278, 123.24949)
+rotation = 0.78397375
+scale = Vector2(0.3962051, 0.41962442)
+texture = ExtResource("7_u5sy4")
 
 [connection signal="pressed" from="ClearWord" to="." method="_on_word_cleared"]
 [connection signal="pressed" from="PlayWord" to="." method="_on_word_played"]
