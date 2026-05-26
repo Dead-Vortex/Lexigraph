@@ -5,6 +5,8 @@ extends Control
 @onready var scoreCounter = $ScoreCounter
 var tile_scene = preload("res://scenes/tile.tscn")
 @onready var word_display = $WordDisplay
+@onready var tile_playmat = $PlayedTiles
+@onready var soundplayer = $AudioStreamPlayer
 
 var en_dictionary : PackedStringArray
 
@@ -16,7 +18,10 @@ var discarded_tiles = []
 var typed_word : String
 var played_tiles = []
 var hand_score : int = 0
+var mult: int = 1
 var score: int = 0
+
+var playing_hand: bool = false
 
 func load_dictionary():
 	var file = FileAccess.open("res://dictionary.txt", FileAccess.READ)
@@ -120,13 +125,24 @@ func sort_hand() -> void:
 		hand.move_child(tiles_to_be_sorted[i], i)
 
 func _on_tile_clicked(clicked_tile) -> void:
-	typed_word += Letters.NUM_TO_LETTER[clicked_tile.letter]
-	word_display.text = typed_word + "\n" + str(in_dictionary(typed_word))
-	played_tiles.append(clicked_tile)
-	hand.remove_child(clicked_tile)
+	if clicked_tile.get_parent() == hand:
+		typed_word += Letters.NUM_TO_LETTER[clicked_tile.letter]
+		word_display.text = typed_word + "\n" + str(in_dictionary(typed_word))
+		print(typed_word + "\n" + str(in_dictionary(typed_word)))
+		played_tiles.append(clicked_tile)
+		hand.remove_child(clicked_tile)
+		tile_playmat.add_child(clicked_tile)
+	elif clicked_tile.get_parent() == tile_playmat and playing_hand == false:
+		played_tiles.remove_at(clicked_tile.get_index())
+		typed_word = typed_word.erase(clicked_tile.get_index())
+		word_display.text = word_display.text.erase(clicked_tile.get_index())
+		tile_playmat.remove_child(clicked_tile)
+		hand.add_child(clicked_tile)
+		sort_hand()
 
 func _on_word_cleared() -> void:
 	for i in len(played_tiles):
+		tile_playmat.remove_child(played_tiles[i])
 		hand.add_child(played_tiles[i])
 	sort_hand()
 	played_tiles = []
@@ -135,13 +151,20 @@ func _on_word_cleared() -> void:
 
 func _on_word_played() -> void:
 	if in_dictionary(typed_word):
+		playing_hand = true
 		hand_score = 0
+		mult = len(played_tiles)
+		#await get_tree().create_timer(0.3).timeout
 		for i in len(played_tiles):
 			hand_score += played_tiles[i].number
+			soundplayer.play()
+			await get_tree().create_timer(0.3).timeout
 		score += hand_score
 		scoreCounter.text = "Score: " + str(score)
 		print(hand_score)
 		played_tiles = []
+		for i in tile_playmat.get_children():
+			tile_playmat.remove_child(tile_playmat.get_children()[0])
 		typed_word = ""
 		word_display.text = ""
 		draw_tiles_from_deck(true)
@@ -150,6 +173,8 @@ func _on_word_played() -> void:
 func _on_tiles_discarded() -> void:
 	discarded_tiles += played_tiles
 	played_tiles = []
+	for i in tile_playmat.get_children():
+		tile_playmat.remove_child(tile_playmat.get_children()[0])
 	typed_word = ""
 	word_display.text = ""
 	sort_hand()

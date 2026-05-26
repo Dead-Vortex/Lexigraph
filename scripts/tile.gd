@@ -19,7 +19,7 @@ func _ready() -> void:
 		#numToLetter[i + 1] = letters[i]
 		#letterToNum[letters[i]] = i + 1
 	change_letter(Letters.NUM_TO_LETTER[randi_range(1, 26)])
-	soundplayer.pitch_scale = randf_range(0.8, 1.1)
+	#soundplayer.pitch_scale = randf_range(0.8, 1.1)
 	soundplayer.play()
 
 func change_letter(new_letter: String):
@@ -33,3 +33,5 @@ func change_letter(new_letter: String):
 func _on_tile_clicked() -> void:
 	#print("hello from " + name)
 	emit_signal("tile_clicked", self)
+	soundplayer.pitch_scale = randf_range(0.8, 1.1)
+	soundplayer.play()

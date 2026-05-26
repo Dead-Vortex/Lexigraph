@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bty4nf18hjtic" path="res://assets/playword.png" id="5_iywne"]
 [ext_resource type="Texture2D" uid="uid://8nisiy031ks" path="res://assets/discard.png" id="6_p57ef"]
 [ext_resource type="Texture2D" uid="uid://d0uas3kdsoohh" path="res://assets/bckg.png" id="7_u5sy4"]
+[ext_resource type="AudioStream" uid="uid://c131d8mtoyrt" path="res://sounds/tile1.ogg" id="8_gee14"]
 
 [sub_resource type="Shader" id="Shader_lbhrr"]
 code = "shader_type canvas_item;
@@ -34,6 +35,11 @@ font_size = 40
 font = ExtResource("3_lnu2h")
 font_size = 20
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0tnpc"]
+random_pitch = 1.122462
+streams_count = 1
+stream_0/stream = ExtResource("8_gee14")
+
 [node name="Control" type="Control" unique_id=225371765]
 layout_mode = 3
 anchors_preset = 15
@@ -57,7 +63,7 @@ anchor_bottom = 1.0
 offset_left = -320.0
 offset_top = -135.0
 offset_right = 321.0
-offset_bottom = -26.0
+offset_bottom = -52.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -75,6 +81,7 @@ text = "0/9"
 label_settings = SubResource("LabelSettings_yqjtg")
 
 [node name="WordDisplay" type="Label" parent="." unique_id=1085818767]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -91,6 +98,16 @@ theme_override_font_sizes/font_size = 30
 label_settings = SubResource("LabelSettings_lnu2h")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PlayedTiles" type="HBoxContainer" parent="." unique_id=769119073]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
 
 [node name="ClearWord" type="Button" parent="." unique_id=853643499]
 material = ExtResource("4_lbhrr")
@@ -128,12 +145,28 @@ offset_right = 466.0
 offset_bottom = 356.0
 texture_normal = ExtResource("6_p57ef")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1529078212]
+[node name="Background" type="TextureRect" parent="." unique_id=649159811]
+visible = false
 z_index = -2
-position = Vector2(267.72278, 123.24949)
-rotation = 0.78397375
-scale = Vector2(0.3962051, 0.41962442)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.00005
+offset_top = -1343.0
+offset_right = 5519.043
+offset_bottom = 3434.0732
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.7853982
+scale = Vector2(0.395, 0.395)
 texture = ExtResource("7_u5sy4")
+stretch_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=46288251]
+stream = SubResource("AudioStreamRandomizer_0tnpc")
 
 [connection signal="pressed" from="ClearWord" to="." method="_on_word_cleared"]
 [connection signal="pressed" from="PlayWord" to="." method="_on_word_played"]

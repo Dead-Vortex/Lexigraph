@@ -3,12 +3,17 @@
 [ext_resource type="Texture2D" uid="uid://0wgs31x3fi0s" path="res://assets/scrabblePiecesSheet.png" id="1_3dk36"]
 [ext_resource type="Script" uid="uid://ny5fxw67hxqe" path="res://scripts/tile.gd" id="1_ywnoi"]
 [ext_resource type="FontFile" uid="uid://chtp1an80eyvy" path="res://fonts/0123456789_9x7.ttf" id="3_q7utx"]
-[ext_resource type="AudioStream" uid="uid://cofbl5aeyfbh6" path="res://sounds/tile.ogg" id="4_q7utx"]
+[ext_resource type="AudioStream" uid="uid://c131d8mtoyrt" path="res://sounds/tile1.ogg" id="4_q7utx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_q7utx"]
 font = ExtResource("3_q7utx")
 font_size = 8
 font_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jy7pm"]
+random_pitch = 1.122462
+streams_count = 1
+stream_0/stream = ExtResource("4_q7utx")
 
 [node name="Tile" type="Control" unique_id=1421871343]
 custom_minimum_size = Vector2(43, 46)
@@ -45,7 +50,7 @@ frame = 1
 
 [node name="Number" type="Label" parent="." unique_id=697478805]
 layout_mode = 0
-offset_left = -12.0
+offset_left = 4.0
 offset_top = 1.0
 offset_right = 42.0
 offset_bottom = 15.0
@@ -55,6 +60,6 @@ horizontal_alignment = 2
 clip_text = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1664706558]
-stream = ExtResource("4_q7utx")
+stream = SubResource("AudioStreamRandomizer_jy7pm")
 
 [connection signal="pressed" from="Button" to="." method="_on_tile_clicked"]
