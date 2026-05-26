@@ -5,9 +5,13 @@
 [ext_resource type="FontFile" uid="uid://cplknmcpefu3s" path="res://fonts/Times New Normal Regular.ttf" id="3_lnu2h"]
 [ext_resource type="Material" uid="uid://dp6tyqiu8s2a1" path="res://shaders/pixeltext.tres" id="4_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://bty4nf18hjtic" path="res://assets/playword.png" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://dwji6if14prx1" path="res://assets/playwordPressed.png" id="6_dinhu"]
 [ext_resource type="Texture2D" uid="uid://8nisiy031ks" path="res://assets/discard.png" id="6_p57ef"]
+[ext_resource type="Texture2D" uid="uid://cihc4hssnlmpc" path="res://assets/playwordSelected.png" id="7_kvuet"]
 [ext_resource type="Texture2D" uid="uid://d0uas3kdsoohh" path="res://assets/bckg.png" id="7_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://c131d8mtoyrt" path="res://sounds/tile1.ogg" id="8_gee14"]
+[ext_resource type="Texture2D" uid="uid://dm0cc62tyeurt" path="res://assets/discardPressed.png" id="9_trtic"]
+[ext_resource type="Texture2D" uid="uid://cosb4dyfehai8" path="res://assets/discardSelected.png" id="10_ir15t"]
 
 [sub_resource type="Shader" id="Shader_lbhrr"]
 code = "shader_type canvas_item;
@@ -39,6 +43,10 @@ font_size = 20
 random_pitch = 1.122462
 streams_count = 1
 stream_0/stream = ExtResource("8_gee14")
+
+[sub_resource type="LabelSettings" id="LabelSettings_gee14"]
+font = ExtResource("3_lnu2h")
+font_size = 20
 
 [node name="Control" type="Control" unique_id=225371765]
 layout_mode = 3
@@ -136,6 +144,8 @@ offset_top = 314.0
 offset_right = 292.0
 offset_bottom = 356.0
 texture_normal = ExtResource("5_iywne")
+texture_pressed = ExtResource("6_dinhu")
+texture_hover = ExtResource("7_kvuet")
 
 [node name="DiscardTiles" type="TextureButton" parent="." unique_id=272335820]
 layout_mode = 0
@@ -144,6 +154,8 @@ offset_top = 314.0
 offset_right = 466.0
 offset_bottom = 356.0
 texture_normal = ExtResource("6_p57ef")
+texture_pressed = ExtResource("9_trtic")
+texture_hover = ExtResource("10_ir15t")
 
 [node name="Background" type="TextureRect" parent="." unique_id=649159811]
 visible = false
@@ -167,6 +179,22 @@ stretch_mode = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=46288251]
 stream = SubResource("AudioStreamRandomizer_0tnpc")
+
+[node name="BonusWords" type="VBoxContainer" parent="." unique_id=1128078183]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -146.0
+offset_bottom = 206.0
+grow_horizontal = 0
+
+[node name="BonusWordsTopLabel" type="Label" parent="BonusWords" unique_id=787423305]
+material = ExtResource("4_lbhrr")
+layout_mode = 2
+text = "Bonus Words"
+label_settings = SubResource("LabelSettings_gee14")
+horizontal_alignment = 1
 
 [connection signal="pressed" from="ClearWord" to="." method="_on_word_cleared"]
 [connection signal="pressed" from="PlayWord" to="." method="_on_word_played"]

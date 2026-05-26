@@ -7,6 +7,7 @@ var tile_scene = preload("res://scenes/tile.tscn")
 @onready var word_display = $WordDisplay
 @onready var tile_playmat = $PlayedTiles
 @onready var soundplayer = $AudioStreamPlayer
+@onready var bonuswordscontainer = $BonusWords
 
 var en_dictionary : PackedStringArray
 
@@ -14,6 +15,8 @@ var hand_size : int = 9
 var deck = []
 var starting_tiles = []
 var discarded_tiles = []
+var bonus_words = []
+var amount_of_bonus_words_to_choose = 5
 
 var typed_word : String
 var played_tiles = []
@@ -94,6 +97,7 @@ func _ready() -> void:
 		#draw_new_tile(Letters.NUM_TO_LETTER[chosen_letter])
 		#await get_tree().create_timer(0.14).timeout
 	#print(deck)
+	new_bonus_words(amount_of_bonus_words_to_choose)
 
 func _process(_delta) -> void:
 	handCounter.text = str(hand.get_child_count()) + "/" + str(hand_size)
@@ -123,6 +127,18 @@ func sort_hand() -> void:
 	tiles_to_be_sorted.sort_custom(func(a, b): return a.name.naturalnocasecmp_to(b.name) < 0)
 	for i in len(tiles_to_be_sorted):
 		hand.move_child(tiles_to_be_sorted[i], i)
+
+func new_bonus_words(amount) -> void:
+	for i in amount:
+		bonus_words = []
+		var new_bonus_word_text_label = Label.new()
+		var chosen_bonus_word = en_dictionary[randi_range(0, len(en_dictionary))]
+		while len(chosen_bonus_word) < 4 or len(chosen_bonus_word) > 6:
+			chosen_bonus_word = en_dictionary[randi_range(0, len(en_dictionary))]
+			print("attempting to choose bonus word " + chosen_bonus_word)
+		bonus_words.append(chosen_bonus_word)
+		new_bonus_word_text_label.text = bonus_words[-1]
+		bonuswordscontainer.add_child(new_bonus_word_text_label)
 
 func _on_tile_clicked(clicked_tile) -> void:
 	if clicked_tile.get_parent() == hand:
@@ -155,10 +171,13 @@ func _on_word_played() -> void:
 		hand_score = 0
 		mult = len(played_tiles)
 		#await get_tree().create_timer(0.3).timeout
+		if bonus_words.has(typed_word):
+			print("played bonus word " + typed_word)
 		for i in len(played_tiles):
 			hand_score += played_tiles[i].number
 			soundplayer.play()
 			await get_tree().create_timer(0.3).timeout
+		score *= mult
 		score += hand_score
 		scoreCounter.text = "Score: " + str(score)
 		print(hand_score)
