@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://dxuimd18hh13m"]
 
 [ext_resource type="Script" uid="uid://b4sv206etsm6" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://c3wk7u2tw0ie7" path="res://assets/background.png" id="2_ir15t"]
 [ext_resource type="FontFile" uid="uid://buu5abmaksqkd" path="res://fonts/alagard.ttf" id="2_yqjtg"]
 [ext_resource type="FontFile" uid="uid://cplknmcpefu3s" path="res://fonts/Times New Normal Regular.ttf" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://bghaddibpt6f1" path="res://addons/crt/crt.gd" id="3_rysoc"]
 [ext_resource type="Material" uid="uid://dp6tyqiu8s2a1" path="res://shaders/pixeltext.tres" id="4_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://bty4nf18hjtic" path="res://assets/playword.png" id="5_iywne"]
 [ext_resource type="Texture2D" uid="uid://dwji6if14prx1" path="res://assets/playwordPressed.png" id="6_dinhu"]
@@ -11,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://d0uas3kdsoohh" path="res://assets/bckg.png" id="7_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://c131d8mtoyrt" path="res://sounds/tile1.ogg" id="8_gee14"]
 [ext_resource type="Script" uid="uid://ktxaehk3xuvi" path="res://scripts/button_sfx.gd" id="8_kvuet"]
+[ext_resource type="Texture2D" uid="uid://dwmi7fb7y1w6e" path="res://assets/playwordDisabled1.png" id="8_trtic"]
 [ext_resource type="Texture2D" uid="uid://dm0cc62tyeurt" path="res://assets/discardPressed.png" id="9_trtic"]
 [ext_resource type="Texture2D" uid="uid://cosb4dyfehai8" path="res://assets/discardSelected.png" id="10_ir15t"]
 
@@ -58,6 +61,30 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yqjtg")
 
+[node name="CRT" type="CanvasLayer" parent="." unique_id=1765988182]
+script = ExtResource("3_rysoc")
+resolution = Vector2(1280, 720)
+scan_line_amount = 0.0
+scan_line_strength = -1.0
+noise_amount = 0.05
+interference_amount = 0.0
+grille_amount = 0.05
+vignette_intensity = 0.2
+aberation_amount = 0.0
+roll_line_amount = 0.0
+pixel_strength = -1.0
+metadata/_custom_type_script = "uid://bghaddibpt6f1"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=267431625]
+layout_mode = 0
+offset_left = 320.43307
+offset_top = -321.40878
+offset_right = 1029.0999
+offset_bottom = 387.97318
+rotation = 0.7853982
+texture = ExtResource("2_ir15t")
+stretch_mode = 1
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=415180119]
 anchor_mode = 0
 
@@ -69,9 +96,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -320.0
+offset_left = -270.0
 offset_top = -135.0
-offset_right = 321.0
+offset_right = 270.0
 offset_bottom = -52.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -152,10 +179,12 @@ offset_right = 55.839996
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_default_cursor_shape = 2
 disabled = true
 texture_normal = ExtResource("5_iywne")
 texture_pressed = ExtResource("6_dinhu")
 texture_hover = ExtResource("7_kvuet")
+texture_disabled = ExtResource("8_trtic")
 script = ExtResource("8_kvuet")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="PlayWord" unique_id=1722070429]
@@ -173,6 +202,7 @@ offset_right = 56.159973
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("6_p57ef")
 texture_pressed = ExtResource("9_trtic")
 texture_hover = ExtResource("10_ir15t")
