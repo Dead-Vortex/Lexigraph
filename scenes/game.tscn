@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dwmi7fb7y1w6e" path="res://assets/playwordDisabled1.png" id="8_trtic"]
 [ext_resource type="Texture2D" uid="uid://dm0cc62tyeurt" path="res://assets/discardPressed.png" id="9_trtic"]
 [ext_resource type="Texture2D" uid="uid://cosb4dyfehai8" path="res://assets/discardSelected.png" id="10_ir15t"]
+[ext_resource type="LabelSettings" uid="uid://cwdemvt0isple" path="res://assets/new_label_settings.tres" id="17_rysoc"]
 
 [sub_resource type="Shader" id="Shader_lbhrr"]
 code = "shader_type canvas_item;
@@ -76,11 +77,18 @@ pixel_strength = -1.0
 metadata/_custom_type_script = "uid://bghaddibpt6f1"
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=267431625]
-layout_mode = 0
-offset_left = 320.43307
-offset_top = -321.40878
-offset_right = 1029.0999
-offset_bottom = 387.97318
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.99997
+offset_top = -1634.0
+offset_right = 2378.0
+offset_bottom = 766.0
+grow_horizontal = 2
+grow_vertical = 2
 rotation = 0.7853982
 texture = ExtResource("2_ir15t")
 stretch_mode = 1
@@ -248,6 +256,19 @@ layout_mode = 2
 text = "Bonus Words"
 label_settings = SubResource("LabelSettings_kvuet")
 horizontal_alignment = 1
+
+[node name="MultnChipsCounter" type="Label" parent="." unique_id=220202039]
+material = ExtResource("4_lbhrr")
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.12100001
+anchor_bottom = 0.12100001
+offset_top = -11.560001
+offset_right = 57.0
+offset_bottom = 11.439999
+text = "Multiplier: 0
+Points: 0"
+label_settings = ExtResource("17_rysoc")
 
 [connection signal="pressed" from="ClearWord" to="." method="_on_word_cleared"]
 [connection signal="button_down" from="PlayWord" to="PlayWord" method="_on_button_down"]

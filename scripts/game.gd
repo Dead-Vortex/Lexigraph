@@ -11,6 +11,7 @@ var tile_scene = preload("res://scenes/tile.tscn")
 var bonuswordlabelsettings = preload("res://assets/new_label_settings.tres")
 var pixeltextshader = preload("res://shaders/pixeltext.tres")
 @onready var playwordbutton = $PlayWord
+@onready var chipsandmultcounter = $MultnChipsCounter
 
 var en_dictionary : PackedStringArray
 
@@ -104,6 +105,7 @@ func _ready() -> void:
 
 func _process(_delta) -> void:
 	handCounter.text = str(hand.get_child_count()) + "/" + str(hand_size)
+	chipsandmultcounter.text = ("Multiplier: " + (str(len(played_tiles)) if playing_hand == false else (str(len(played_tiles) + 10) if bonus_words.has(typed_word.to_lower()) else str(mult))) + "\nPoints: " + str(hand_score))
 
 func draw_new_tile(letter = "") -> void:
 	var tile_instance = tile_scene.instantiate()
@@ -188,11 +190,12 @@ func _on_word_played() -> void:
 		#await get_tree().create_timer(0.3).timeout
 		if bonus_words.has(typed_word):
 			print("played bonus word " + typed_word)
+			mult += 10
 		for i in len(played_tiles):
 			hand_score += played_tiles[i].number
 			soundplayer.play()
 			await get_tree().create_timer(0.3).timeout
-		score *= mult
+		hand_score *= mult
 		score += hand_score
 		scoreCounter.text = "Score: " + str(score)
 		print(hand_score)
@@ -203,6 +206,7 @@ func _on_word_played() -> void:
 		word_display.text = ""
 		draw_tiles_from_deck(true)
 		hand_score = 0
+		playing_hand = false
 
 func _on_tiles_discarded() -> void:
 	discarded_tiles += played_tiles
