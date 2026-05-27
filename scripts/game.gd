@@ -8,6 +8,9 @@ var tile_scene = preload("res://scenes/tile.tscn")
 @onready var tile_playmat = $PlayedTiles
 @onready var soundplayer = $AudioStreamPlayer
 @onready var bonuswordscontainer = $BonusWords
+var bonuswordlabelsettings = preload("res://assets/new_label_settings.tres")
+var pixeltextshader = preload("res://shaders/pixeltext.tres")
+@onready var playwordbutton = $PlayWord
 
 var en_dictionary : PackedStringArray
 
@@ -129,16 +132,23 @@ func sort_hand() -> void:
 		hand.move_child(tiles_to_be_sorted[i], i)
 
 func new_bonus_words(amount) -> void:
+	bonus_words = []
+	for i in bonuswordscontainer.get_child_count():
+		if i >= 1:
+			bonuswordscontainer.get_children()[i].queue_free()
 	for i in amount:
-		bonus_words = []
 		var new_bonus_word_text_label = Label.new()
 		var chosen_bonus_word = en_dictionary[randi_range(0, len(en_dictionary))]
 		while len(chosen_bonus_word) < 4 or len(chosen_bonus_word) > 6:
 			chosen_bonus_word = en_dictionary[randi_range(0, len(en_dictionary))]
-			print("attempting to choose bonus word " + chosen_bonus_word)
+			#print("attempting to choose bonus word " + chosen_bonus_word)
 		bonus_words.append(chosen_bonus_word)
 		new_bonus_word_text_label.text = bonus_words[-1]
+		new_bonus_word_text_label.label_settings = bonuswordlabelsettings
+		new_bonus_word_text_label.material = pixeltextshader
+		new_bonus_word_text_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		bonuswordscontainer.add_child(new_bonus_word_text_label)
+	print(bonus_words)
 
 func _on_tile_clicked(clicked_tile) -> void:
 	if clicked_tile.get_parent() == hand:
@@ -155,6 +165,10 @@ func _on_tile_clicked(clicked_tile) -> void:
 		tile_playmat.remove_child(clicked_tile)
 		hand.add_child(clicked_tile)
 		sort_hand()
+	if in_dictionary(typed_word):
+		playwordbutton.disabled = false
+	else:
+		playwordbutton.disabled = true
 
 func _on_word_cleared() -> void:
 	for i in len(played_tiles):
@@ -167,6 +181,7 @@ func _on_word_cleared() -> void:
 
 func _on_word_played() -> void:
 	if in_dictionary(typed_word):
+		typed_word = typed_word.to_lower()
 		playing_hand = true
 		hand_score = 0
 		mult = len(played_tiles)

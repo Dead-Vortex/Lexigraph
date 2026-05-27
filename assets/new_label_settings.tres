@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://cwdemvt0isple"]
+
+[ext_resource type="FontFile" uid="uid://cplknmcpefu3s" path="res://fonts/Times New Normal Regular.ttf" id="1_aeh8r"]
+
+[resource]
+font = ExtResource("1_aeh8r")
+font_size = 20

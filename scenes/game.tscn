@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cihc4hssnlmpc" path="res://assets/playwordSelected.png" id="7_kvuet"]
 [ext_resource type="Texture2D" uid="uid://d0uas3kdsoohh" path="res://assets/bckg.png" id="7_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://c131d8mtoyrt" path="res://sounds/tile1.ogg" id="8_gee14"]
+[ext_resource type="Script" uid="uid://ktxaehk3xuvi" path="res://scripts/button_sfx.gd" id="8_kvuet"]
 [ext_resource type="Texture2D" uid="uid://dm0cc62tyeurt" path="res://assets/discardPressed.png" id="9_trtic"]
 [ext_resource type="Texture2D" uid="uid://cosb4dyfehai8" path="res://assets/discardSelected.png" id="10_ir15t"]
 
@@ -44,7 +45,7 @@ random_pitch = 1.122462
 streams_count = 1
 stream_0/stream = ExtResource("8_gee14")
 
-[sub_resource type="LabelSettings" id="LabelSettings_gee14"]
+[sub_resource type="LabelSettings" id="LabelSettings_kvuet"]
 font = ExtResource("3_lnu2h")
 font_size = 20
 
@@ -118,6 +119,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="ClearWord" type="Button" parent="." unique_id=853643499]
+visible = false
 material = ExtResource("4_lbhrr")
 layout_mode = 1
 anchors_preset = 2
@@ -138,24 +140,45 @@ text = "Score: 0"
 label_settings = SubResource("LabelSettings_lbhrr")
 
 [node name="PlayWord" type="TextureButton" parent="." unique_id=863315500]
-layout_mode = 0
-offset_left = 182.0
-offset_top = 314.0
-offset_right = 292.0
-offset_bottom = 356.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.344
+anchor_top = 1.0
+anchor_right = 0.344
+anchor_bottom = 1.0
+offset_left = -56.160004
+offset_top = -49.0
+offset_right = 55.839996
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+disabled = true
 texture_normal = ExtResource("5_iywne")
 texture_pressed = ExtResource("6_dinhu")
 texture_hover = ExtResource("7_kvuet")
+script = ExtResource("8_kvuet")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="PlayWord" unique_id=1722070429]
 
 [node name="DiscardTiles" type="TextureButton" parent="." unique_id=272335820]
-layout_mode = 0
-offset_left = 356.0
-offset_top = 314.0
-offset_right = 466.0
-offset_bottom = 356.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.656
+anchor_top = 1.0
+anchor_right = 0.656
+anchor_bottom = 1.0
+offset_left = -55.840027
+offset_top = -49.0
+offset_right = 56.159973
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
 texture_normal = ExtResource("6_p57ef")
 texture_pressed = ExtResource("9_trtic")
 texture_hover = ExtResource("10_ir15t")
+script = ExtResource("8_kvuet")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DiscardTiles" unique_id=2019521204]
 
 [node name="Background" type="TextureRect" parent="." unique_id=649159811]
 visible = false
@@ -193,9 +216,13 @@ grow_horizontal = 0
 material = ExtResource("4_lbhrr")
 layout_mode = 2
 text = "Bonus Words"
-label_settings = SubResource("LabelSettings_gee14")
+label_settings = SubResource("LabelSettings_kvuet")
 horizontal_alignment = 1
 
 [connection signal="pressed" from="ClearWord" to="." method="_on_word_cleared"]
+[connection signal="button_down" from="PlayWord" to="PlayWord" method="_on_button_down"]
+[connection signal="button_up" from="PlayWord" to="PlayWord" method="_on_button_up"]
 [connection signal="pressed" from="PlayWord" to="." method="_on_word_played"]
+[connection signal="button_down" from="DiscardTiles" to="DiscardTiles" method="_on_button_down"]
+[connection signal="button_up" from="DiscardTiles" to="DiscardTiles" method="_on_button_up"]
 [connection signal="pressed" from="DiscardTiles" to="." method="_on_tiles_discarded"]
